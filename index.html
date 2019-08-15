@@ -596,6 +596,87 @@
 
 
   
+    <article id="post-为什么HashMap使用红黑树而不是平衡二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/">HashMap中为什么要使用红黑树</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" class="archive-article-date">
+  	<time datetime="2017-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="为什么HashMap使用红黑树而不用平衡二叉树"><a href="#为什么HashMap使用红黑树而不用平衡二叉树" class="headerlink" title="为什么HashMap使用红黑树而不用平衡二叉树"></a>为什么HashMap使用红黑树而不用平衡二叉树</h2><p>​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
+<p>​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！</p>
+<p>​    红黑树和AVL树都是常用的平衡二叉搜索树，他们查找、删除、修改的时间复杂度都是O(logn)，首先要明确两者的一些区别：</p>
+<ul>
+<li>AVL树是更加严格的平衡，所以它的查找速度更快，一般读取查找密集型任务。</li>
+<li>红黑树放弃了追求完全的平衡，追求大致平衡，在与AVL的使劲复杂度相差不大的情况下，保证每次插入最后只需要三次旋转就能达到平衡，更适合于插入修改密集型任务。</li>
+<li>AVL树通常比红黑树更加难以平衡。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HashMap 红黑树</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -686,6 +767,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HashMap 红黑树</a>
               </li>
              
               <li class="article-tag-list-item">
