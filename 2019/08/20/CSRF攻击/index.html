@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>动态代理的两种方式 | MyKatZone</title>
+  <title>CSRF | MyKatZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="动态代理的两种方式 JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。 CGlib动态代理：利用ASM（开元的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。  区别：JDK代理只能对实现接口的类生成代理，CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法">
-<meta name="keywords" content="动态代理">
+  <meta name="description" content="什么是CSRF攻击​    CSRF攻击的全称是跨站请求伪造(cross site request forgery) ，是一种对网站的恶意利用。CSRF是通过伪装来自受信任用户的请求来利用受信任的网站。也可以这样理解：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。CSRF能做的事情包括：利用你的身份发邮件、发短信、进行交易转账等，甚至盗取你的账号。 CSRF攻击原理​    话不多说，">
+<meta name="keywords" content="跨域攻击">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态代理的两种方式">
-<meta property="og:url" content="http://yoursite.com/2017/12/24/动态代理的两种方式及区别/index.html">
+<meta property="og:title" content="CSRF">
+<meta property="og:url" content="http://yoursite.com/2019/08/20/CSRF攻击/index.html">
 <meta property="og:site_name" content="MyKatZone">
-<meta property="og:description" content="动态代理的两种方式 JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。 CGlib动态代理：利用ASM（开元的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。  区别：JDK代理只能对实现接口的类生成代理，CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法">
+<meta property="og:description" content="什么是CSRF攻击​    CSRF攻击的全称是跨站请求伪造(cross site request forgery) ，是一种对网站的恶意利用。CSRF是通过伪装来自受信任用户的请求来利用受信任的网站。也可以这样理解：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。CSRF能做的事情包括：利用你的身份发邮件、发短信、进行交易转账等，甚至盗取你的账号。 CSRF攻击原理​    话不多说，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-16T01:55:31.496Z">
+<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CPictures%5C%E6%8A%80%E6%9C%AF%5CCSRF%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86.jpg">
+<meta property="og:updated_time" content="2019-08-20T11:43:55.819Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态代理的两种方式">
-<meta name="twitter:description" content="动态代理的两种方式 JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。 CGlib动态代理：利用ASM（开元的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。  区别：JDK代理只能对实现接口的类生成代理，CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法">
+<meta name="twitter:title" content="CSRF">
+<meta name="twitter:description" content="什么是CSRF攻击​    CSRF攻击的全称是跨站请求伪造(cross site request forgery) ，是一种对网站的恶意利用。CSRF是通过伪装来自受信任用户的请求来利用受信任的网站。也可以这样理解：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。CSRF能做的事情包括：利用你的身份发邮件、发短信、进行交易转账等，甚至盗取你的账号。 CSRF攻击原理​    话不多说，">
+<meta name="twitter:image" content="c:%5CUsers%5CAdministrator%5CPictures%5C%E6%8A%80%E6%9C%AF%5CCSRF%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86.jpg">
   
     <link rel="alternative" href="/atom.xml" title="MyKatZone" type="application/atom+xml">
   
@@ -171,35 +173,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-动态代理的两种方式及区别" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CSRF攻击" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      动态代理的两种方式
+      CSRF
     </h1>
   
 
         
-        <a href="/2017/12/24/动态代理的两种方式及区别/" class="archive-article-date">
-  	<time datetime="2017-12-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-24</time>
+        <a href="/2019/08/20/CSRF攻击/" class="archive-article-date">
+  	<time datetime="2019-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="动态代理的两种方式"><a href="#动态代理的两种方式" class="headerlink" title="动态代理的两种方式"></a>动态代理的两种方式</h2><ul>
-<li>JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。</li>
-<li>CGlib动态代理：利用ASM（开元的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。</li>
+        <h2 id="什么是CSRF攻击"><a href="#什么是CSRF攻击" class="headerlink" title="什么是CSRF攻击"></a>什么是CSRF攻击</h2><p>​    CSRF攻击的全称是跨站请求伪造(cross site request forgery) ，是一种对网站的恶意利用。CSRF是通过伪装来自受信任用户的请求来利用受信任的网站。也可以这样理解：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。CSRF能做的事情包括：利用你的身份发邮件、发短信、进行交易转账等，甚至盗取你的账号。</p>
+<h2 id="CSRF攻击原理"><a href="#CSRF攻击原理" class="headerlink" title="CSRF攻击原理"></a>CSRF攻击原理</h2><p>​    话不多说，先上图</p>
+<p>​    <img src="C:%5CUsers%5CAdministrator%5CPictures%5C%E6%8A%80%E6%9C%AF%5CCSRF%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86.jpg" alt="CSRF攻击原理"></p>
+<ul>
+<li><p>首先用户 <code>C</code>浏览并登录了受信任站点 <code>A</code>；</p>
+</li>
+<li><p>登录信息验证通过以后，站点 <code>A</code>会在返回给浏览器的信息中带上已登录的 <code>cookie</code>， <code>cookie</code>信息会在浏览器端保存一定时间（根据服务端设置而定）；</p>
+</li>
+<li><p>完成这一步以后，用户在没有登出（清除站点 <code>A</code>的 <code>cookie</code>）站点 <code>A</code>的情况下，访问恶意站点 <code>B</code>；</p>
+</li>
+<li><p>这时恶意站点 <code>B</code>的某个页面向站点 <code>A</code>发起请求，而这个请求会带上浏览器端所保存的站点 <code>A</code>的 <code>cookie</code>；</p>
+</li>
+<li><p>站点 <code>A</code>根据请求所带的 <code>cookie</code>，判断此请求为用户 <code>C</code>所发送的。</p>
+<p>因此，站点A会根据用户C的权限来处理恶意站点B所发起的请求，而这个请求可能以用户C的身份发送邮件、短信、消息，以及进行转账支付等操作，这样恶意站点B就达到了伪造用户C请求站点A的目的。</p>
+</li>
 </ul>
-<p>区别：JDK代理只能对实现接口的类生成代理，CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法，这种通过继承类的实现方式，不能代理final修饰的类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDK动态代理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDKProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要代理的目标对象</span></span><br><span class="line">    <span class="keyword">private</span> Object targetObject;    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">newProxy</span><span class="params">(Object targetObject)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 将目标对象传入进行代理    </span></span><br><span class="line">        <span class="keyword">this</span>.targetObject = targetObject;</span><br><span class="line">        <span class="comment">// 返回代理对象 </span></span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(targetObject.getClass().getClassLoader(), targetObject.getClass().getInterfaces(), <span class="keyword">this</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// invoke方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// 进行逻辑处理的函数</span></span><br><span class="line">        <span class="comment">//自定义增强语句</span></span><br><span class="line">        Object ret = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 调用invoke方法</span></span><br><span class="line">        ret = method.invoke(targetObject, args);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>​    受害者只需要做两件事，就满足了攻击者完成CSRF攻击的充分条件：</p>
+<ul>
+<li><p>登录受信任站点A，并在本地生成cookies;</p>
+</li>
+<li><p>在不登出站点A（清除站点A的cookies）的情况下，访问恶意站点B。</p>
+<p>而且在很多情况下，所谓的恶意站点，很有可能是一个存在其他漏洞的受信任且被很多人访问的站点，这样，普通用户可能在不知不觉中成为受害者。</p>
+</li>
+</ul>
+<h2 id="CSRF的防御"><a href="#CSRF的防御" class="headerlink" title="CSRF的防御"></a>CSRF的防御</h2><ul>
+<li>尽量使用POST，限制GET</li>
+</ul>
 <blockquote>
-<p>参考文献：<a href="https://blog.csdn.net/weixin_36759405/article/details/82770422" target="_blank" rel="noopener">https://blog.csdn.net/weixin_36759405/article/details/82770422</a></p>
+<p><code>GET</code>接口太容易被拿来做 <code>CSRF</code>攻击，看上面示例就知道，只要构造一个 <code>img</code>标签，而 <code>img</code>标签又是不能过滤的数据。接口最好限制为 <code>POST</code>使用， <code>GET</code>则无效，降低攻击风险。</p>
+<p>当然 <code>POST</code>并不是万无一失，攻击者只要构造一个 <code>form</code>就可以，但需要在第三方页面做，这样就增加暴露的可能性。</p>
+</blockquote>
+<ul>
+<li><strong>将 cookie设置为 HttpOnly</strong></li>
+</ul>
+<blockquote>
+<p><code>CRSF</code>攻击很大程度上是利用了浏览器的 <code>cookie</code>，为了防止站内的 <code>XSS</code>漏洞盗取 <code>cookie</code>,需要在 <code>cookie</code>中设置 <code>“HttpOnly”</code>属性，这样通过程序（如 <code>JavaScript</code>脚本、 <code>Applet</code>等）就无法读取到 <code>cookie</code>信息，避免了攻击者伪造 <code>cookie</code>的情况出现。</p>
+<p>在 <code>Java</code>的 <code>Servlet</code>的API中设置 <code>cookie</code>为 <code>HttpOnly</code>的代码为：<code>response.setHeader(&quot;Set-Cookie&quot;,&quot;cookiename=cookievalue;HttpOnly&quot;);</code></p>
+</blockquote>
+<ul>
+<li>增加Token</li>
+</ul>
+<blockquote>
+<p><code>CSRF</code>攻击之所以能够成功，是因为攻击者可以伪造用户的请求，该请求中所有的用户验证信息都存在于 <code>cookie</code>中，因此攻击者可以在不知道用户验证信息的情况下直接利用用户的 <code>cookie</code>来通过安全验证。由此可知，抵御 <code>CSRF</code>攻击的关键在于：<strong>在请求中放入攻击者所不能伪造的信息，并且该信总不存在于 cookie之中</strong>。鉴于此，系统开发人员可以在 <code>HTTP</code>请求中以参数的形式加入一个随机产生的 <code>token</code>，并在服务端进行 <code>token</code>校验，如果请求中没有 <code>token</code>或者 <code>token</code>内容不正确，则认为是 <code>CSRF</code>攻击而拒绝该请求。</p>
+</blockquote>
+<ul>
+<li>通过Reference识别</li>
+</ul>
+<blockquote>
+<p>根据 <code>HTTP</code>协议，在 <code>HTTP</code>头中有一个字段叫 <code>Referer</code>，它记录了该 <code>HTTP</code>请求的来源地址。在通常情况下，访问一个安全受限的页面的请求都来自于同一个网站。比如某银行的转账是通过用户访问 <code>http://www.xxx.com/transfer.do</code>页面完成的，用户必须先登录 <code>www.xxx.com</code>，然后通过单击页面上的提交按钮来触发转账事件。当用户提交请求时，该转账请求的 <code>Referer</code>值就会是 提交按钮所在页面的 <code>URL</code>。</p>
+<p>如果攻击者要对银行网站实施 <code>CSRF</code>攻击，他只能在其他网站构造请求，当用户通过其他网站发送请求到银行时，该请求的 <code>Referer</code>的值是其他网站的地址，而不是银行转账页面的地址。因此，要防御 <code>CSRF</code>攻击，银行网站只需要对于每一个转账请求验证其 <code>Referer</code>值即可，如果是以 <code>www.xx.om</code>域名开头的地址，则说明该请求是来自银行网站自己的请求，是合法的；如果 <code>Referer</code>是其他网站，就有可能是 <code>CSRF</code>攻击，则拒绝该请求。</p>
+</blockquote>
+<blockquote>
+<p>参考博客：CodeSheep《你了解可怕的CSRF攻击吗？》<a href="https://mp.weixin.qq.com/s/xNihJlRKdNSnsHKD83DqfQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/xNihJlRKdNSnsHKD83DqfQ</a></p>
 </blockquote>
 
       
@@ -245,7 +291,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">动态代理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">跨域攻击</a>
         		</li>
       		
 		</ul>
@@ -301,7 +347,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/24/动态代理的两种方式及区别/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/20/CSRF攻击/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,18 +361,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/24/hashMap和concurrentHashMap源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          HashMap ConcurrentHashMap源码解析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HashMap中为什么要使用红黑树</div>
+    <a href="/2019/08/17/ThreadLocal原理分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ThreadLocal</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -357,8 +394,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2017/12/24/动态代理的两种方式及区别/", 
-    sourceId: "动态代理的两种方式及区别",
+    url: "http://yoursite.com/2019/08/20/CSRF攻击/", 
+    sourceId: "CSRF攻击",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

@@ -171,6 +171,133 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CSRF攻击" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/20/CSRF攻击/">CSRF</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/20/CSRF攻击/" class="archive-article-date">
+  	<time datetime="2019-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是CSRF攻击"><a href="#什么是CSRF攻击" class="headerlink" title="什么是CSRF攻击"></a>什么是CSRF攻击</h2><p>​    CSRF攻击的全称是跨站请求伪造(cross site request forgery) ，是一种对网站的恶意利用。CSRF是通过伪装来自受信任用户的请求来利用受信任的网站。也可以这样理解：攻击者盗用了你的身份，以你的名义向第三方网站发送恶意请求。CSRF能做的事情包括：利用你的身份发邮件、发短信、进行交易转账等，甚至盗取你的账号。</p>
+<h2 id="CSRF攻击原理"><a href="#CSRF攻击原理" class="headerlink" title="CSRF攻击原理"></a>CSRF攻击原理</h2><p>​    话不多说，先上图</p>
+<p>​    <img src="C:%5CUsers%5CAdministrator%5CPictures%5C%E6%8A%80%E6%9C%AF%5CCSRF%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86.jpg" alt="CSRF攻击原理"></p>
+<ul>
+<li><p>首先用户 <code>C</code>浏览并登录了受信任站点 <code>A</code>；</p>
+</li>
+<li><p>登录信息验证通过以后，站点 <code>A</code>会在返回给浏览器的信息中带上已登录的 <code>cookie</code>， <code>cookie</code>信息会在浏览器端保存一定时间（根据服务端设置而定）；</p>
+</li>
+<li><p>完成这一步以后，用户在没有登出（清除站点 <code>A</code>的 <code>cookie</code>）站点 <code>A</code>的情况下，访问恶意站点 <code>B</code>；</p>
+</li>
+<li><p>这时恶意站点 <code>B</code>的某个页面向站点 <code>A</code>发起请求，而这个请求会带上浏览器端所保存的站点 <code>A</code>的 <code>cookie</code>；</p>
+</li>
+<li><p>站点 <code>A</code>根据请求所带的 <code>cookie</code>，判断此请求为用户 <code>C</code>所发送的。</p>
+<p>因此，站点A会根据用户C的权限来处理恶意站点B所发起的请求，而这个请求可能以用户C的身份发送邮件、短信、消息，以及进行转账支付等操作，这样恶意站点B就达到了伪造用户C请求站点A的目的。</p>
+</li>
+</ul>
+<p>​    受害者只需要做两件事，就满足了攻击者完成CSRF攻击的充分条件：</p>
+<ul>
+<li><p>登录受信任站点A，并在本地生成cookies;</p>
+</li>
+<li><p>在不登出站点A（清除站点A的cookies）的情况下，访问恶意站点B。</p>
+<p>而且在很多情况下，所谓的恶意站点，很有可能是一个存在其他漏洞的受信任且被很多人访问的站点，这样，普通用户可能在不知不觉中成为受害者。</p>
+</li>
+</ul>
+<h2 id="CSRF的防御"><a href="#CSRF的防御" class="headerlink" title="CSRF的防御"></a>CSRF的防御</h2><ul>
+<li>尽量使用POST，限制GET</li>
+</ul>
+<blockquote>
+<p><code>GET</code>接口太容易被拿来做 <code>CSRF</code>攻击，看上面示例就知道，只要构造一个 <code>img</code>标签，而 <code>img</code>标签又是不能过滤的数据。接口最好限制为 <code>POST</code>使用， <code>GET</code>则无效，降低攻击风险。</p>
+<p>当然 <code>POST</code>并不是万无一失，攻击者只要构造一个 <code>form</code>就可以，但需要在第三方页面做，这样就增加暴露的可能性。</p>
+</blockquote>
+<ul>
+<li><strong>将 cookie设置为 HttpOnly</strong></li>
+</ul>
+<blockquote>
+<p><code>CRSF</code>攻击很大程度上是利用了浏览器的 <code>cookie</code>，为了防止站内的 <code>XSS</code>漏洞盗取 <code>cookie</code>,需要在 <code>cookie</code>中设置 <code>“HttpOnly”</code>属性，这样通过程序（如 <code>JavaScript</code>脚本、 <code>Applet</code>等）就无法读取到 <code>cookie</code>信息，避免了攻击者伪造 <code>cookie</code>的情况出现。</p>
+<p>在 <code>Java</code>的 <code>Servlet</code>的API中设置 <code>cookie</code>为 <code>HttpOnly</code>的代码为：<code>response.setHeader(&quot;Set-Cookie&quot;,&quot;cookiename=cookievalue;HttpOnly&quot;);</code></p>
+</blockquote>
+<ul>
+<li>增加Token</li>
+</ul>
+<blockquote>
+<p><code>CSRF</code>攻击之所以能够成功，是因为攻击者可以伪造用户的请求，该请求中所有的用户验证信息都存在于 <code>cookie</code>中，因此攻击者可以在不知道用户验证信息的情况下直接利用用户的 <code>cookie</code>来通过安全验证。由此可知，抵御 <code>CSRF</code>攻击的关键在于：<strong>在请求中放入攻击者所不能伪造的信息，并且该信总不存在于 cookie之中</strong>。鉴于此，系统开发人员可以在 <code>HTTP</code>请求中以参数的形式加入一个随机产生的 <code>token</code>，并在服务端进行 <code>token</code>校验，如果请求中没有 <code>token</code>或者 <code>token</code>内容不正确，则认为是 <code>CSRF</code>攻击而拒绝该请求。</p>
+</blockquote>
+<ul>
+<li>通过Reference识别</li>
+</ul>
+<blockquote>
+<p>根据 <code>HTTP</code>协议，在 <code>HTTP</code>头中有一个字段叫 <code>Referer</code>，它记录了该 <code>HTTP</code>请求的来源地址。在通常情况下，访问一个安全受限的页面的请求都来自于同一个网站。比如某银行的转账是通过用户访问 <code>http://www.xxx.com/transfer.do</code>页面完成的，用户必须先登录 <code>www.xxx.com</code>，然后通过单击页面上的提交按钮来触发转账事件。当用户提交请求时，该转账请求的 <code>Referer</code>值就会是 提交按钮所在页面的 <code>URL</code>。</p>
+<p>如果攻击者要对银行网站实施 <code>CSRF</code>攻击，他只能在其他网站构造请求，当用户通过其他网站发送请求到银行时，该请求的 <code>Referer</code>的值是其他网站的地址，而不是银行转账页面的地址。因此，要防御 <code>CSRF</code>攻击，银行网站只需要对于每一个转账请求验证其 <code>Referer</code>值即可，如果是以 <code>www.xx.om</code>域名开头的地址，则说明该请求是来自银行网站自己的请求，是合法的；如果 <code>Referer</code>是其他网站，就有可能是 <code>CSRF</code>攻击，则拒绝该请求。</p>
+</blockquote>
+<blockquote>
+<p>参考博客：CodeSheep《你了解可怕的CSRF攻击吗？》<a href="https://mp.weixin.qq.com/s/xNihJlRKdNSnsHKD83DqfQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/xNihJlRKdNSnsHKD83DqfQ</a></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">跨域攻击</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/20/CSRF攻击/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ThreadLocal原理分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1044,15 +1171,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Thread ThreadLocal</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1060,11 +1183,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">HashMap ConcurrentHashMap</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color5">跨域攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
             
             <div class="clearfix"></div>
