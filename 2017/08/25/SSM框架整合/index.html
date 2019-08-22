@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HashMap中为什么要使用红黑树 | MyKatZone</title>
+  <title>SSM框架整合 | MyKatZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
-<meta name="keywords" content="HashMap 红黑树">
+  <meta name="description" content="Spring+SpringMVC+Mybatis快速整合 基础步骤：  打开IDEA，新建一个maven工程 完善web.xml 添加所需配置文件 建数据库测试，配置Tomcat测试运行  pom文件所需依赖及作用   依赖 作用    spring-context Spring基本组件   spring-webmvc SpringMVC基本组件,其包含spring-context   sprin">
+<meta name="keywords" content="SSM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap中为什么要使用红黑树">
-<meta property="og:url" content="http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/index.html">
+<meta property="og:title" content="SSM框架整合">
+<meta property="og:url" content="http://yoursite.com/2017/08/25/SSM框架整合/index.html">
 <meta property="og:site_name" content="MyKatZone">
-<meta property="og:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta property="og:description" content="Spring+SpringMVC+Mybatis快速整合 基础步骤：  打开IDEA，新建一个maven工程 完善web.xml 添加所需配置文件 建数据库测试，配置Tomcat测试运行  pom文件所需依赖及作用   依赖 作用    spring-context Spring基本组件   spring-webmvc SpringMVC基本组件,其包含spring-context   sprin">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-15T10:11:07.982Z">
+<meta property="og:updated_time" content="2019-08-20T12:39:11.952Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HashMap中为什么要使用红黑树">
-<meta name="twitter:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta name="twitter:title" content="SSM框架整合">
+<meta name="twitter:description" content="Spring+SpringMVC+Mybatis快速整合 基础步骤：  打开IDEA，新建一个maven工程 完善web.xml 添加所需配置文件 建数据库测试，配置Tomcat测试运行  pom文件所需依赖及作用   依赖 作用    spring-context Spring基本组件   spring-webmvc SpringMVC基本组件,其包含spring-context   sprin">
   
     <link rel="alternative" href="/atom.xml" title="MyKatZone" type="application/atom+xml">
   
@@ -171,34 +171,100 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为什么HashMap使用红黑树而不是平衡二叉树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SSM框架整合" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      HashMap中为什么要使用红黑树
+      SSM框架整合
     </h1>
   
 
         
-        <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" class="archive-article-date">
-  	<time datetime="2017-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-11</time>
+        <a href="/2017/08/25/SSM框架整合/" class="archive-article-date">
+  	<time datetime="2017-08-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="为什么HashMap使用红黑树而不用平衡二叉树"><a href="#为什么HashMap使用红黑树而不用平衡二叉树" class="headerlink" title="为什么HashMap使用红黑树而不用平衡二叉树"></a>为什么HashMap使用红黑树而不用平衡二叉树</h2><p>​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
-<p>​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！</p>
-<p>​    红黑树和AVL树都是常用的平衡二叉搜索树，他们查找、删除、修改的时间复杂度都是O(logn)，首先要明确两者的一些区别：</p>
-<ul>
-<li>AVL树是更加严格的平衡，所以它的查找速度更快，一般读取查找密集型任务。</li>
-<li>红黑树放弃了追求完全的平衡，追求大致平衡，在与AVL的使劲复杂度相差不大的情况下，保证每次插入最后只需要三次旋转就能达到平衡，更适合于插入修改密集型任务。</li>
-<li>AVL树通常比红黑树更加难以平衡。</li>
-</ul>
+        <p>Spring+SpringMVC+Mybatis快速整合</p>
+<p>基础步骤：</p>
+<ol>
+<li>打开IDEA，新建一个maven工程</li>
+<li>完善web.xml</li>
+<li>添加所需配置文件</li>
+<li>建数据库测试，配置Tomcat测试运行</li>
+</ol>
+<h2 id="pom文件"><a href="#pom文件" class="headerlink" title="pom文件"></a>pom文件</h2><h4 id="所需依赖及作用"><a href="#所需依赖及作用" class="headerlink" title="所需依赖及作用"></a>所需依赖及作用</h4><table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>spring-context</td>
+<td>Spring基本组件</td>
+</tr>
+<tr>
+<td>spring-webmvc</td>
+<td>SpringMVC基本组件,其包含spring-context</td>
+</tr>
+<tr>
+<td>spring-tx</td>
+<td>使用事务所需依赖</td>
+</tr>
+<tr>
+<td>javax.servlet-api</td>
+<td>servlet依赖，web项目必须依赖</td>
+</tr>
+<tr>
+<td>druid</td>
+<td>数据库连接池</td>
+</tr>
+<tr>
+<td>mysql-connector-java</td>
+<td>mysql驱动，jdbc连接必须</td>
+</tr>
+<tr>
+<td>mybatis</td>
+<td>半自动化ORM框架与数据库打交道</td>
+</tr>
+<tr>
+<td>mybatis-spring</td>
+<td>Mybatis与Spring整合所需依赖</td>
+</tr>
+<tr>
+<td>spring-jdbc</td>
+<td>Spring整合jdbc所需依赖</td>
+</tr>
+<tr>
+<td>spring-test</td>
+<td>Spring测试依赖</td>
+</tr>
+<tr>
+<td>junit</td>
+<td>junit单元测试依赖</td>
+</tr>
+<tr>
+<td>slf4j-log4j12</td>
+<td>打印日志依赖，底层依赖了log4j</td>
+</tr>
+<tr>
+<td>commons-lang3</td>
+<td>开发常用工具类库</td>
+</tr>
+<tr>
+<td>jackson-databind</td>
+<td>bean与json互转依赖，底层包含jackson-core与jackson-annotations</td>
+</tr>
+</tbody></table>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h4 id="web-xml"><a href="#web-xml" class="headerlink" title="web.xml"></a>web.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--服务器启动时自动加载配置文件--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--启动容器时需要自动装载 ApplicationContext，Spring 提供的 ContextLoaderListener 就是为了自动装配 ApplicationContext 的配置信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-context*.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--编码过滤器，解决中文编码问题--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>forceEncoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置SpringMVC分发器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置springMVC需要加载的配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-mvc*.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">async-supported</span>&gt;</span>true<span class="tag">&lt;/<span class="name">async-supported</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置 Druid 监控中心 阿里巴巴数据库自带功能--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>DruidStatView<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.alibaba.druid.support.http.StatViewServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>DruidStatView<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/druid/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -243,7 +309,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HashMap 红黑树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SSM</a>
         		</li>
       		
 		</ul>
@@ -299,7 +365,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/08/25/SSM框架整合/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,20 +379,15 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/24/动态代理的两种方式及区别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          动态代理的两种方式
+          HashMap中为什么要使用红黑树
         
       </div>
     </a>
   
-  
-    <a href="/2017/08/25/SSM框架整合/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SSM框架整合</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
@@ -355,8 +416,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/", 
-    sourceId: "为什么HashMap使用红黑树而不是平衡二叉树",
+    url: "http://yoursite.com/2017/08/25/SSM框架整合/", 
+    sourceId: "SSM框架整合",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

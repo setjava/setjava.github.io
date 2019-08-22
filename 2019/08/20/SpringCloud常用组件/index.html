@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HashMap中为什么要使用红黑树 | MyKatZone</title>
+  <title>SpringCloud组件 | MyKatZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
-<meta name="keywords" content="HashMap 红黑树">
+  <meta name="description" content="SpringCloud集成常用组件">
+<meta name="keywords" content="SpringCloud">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap中为什么要使用红黑树">
-<meta property="og:url" content="http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/index.html">
+<meta property="og:title" content="SpringCloud组件">
+<meta property="og:url" content="http://yoursite.com/2019/08/20/SpringCloud常用组件/index.html">
 <meta property="og:site_name" content="MyKatZone">
-<meta property="og:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta property="og:description" content="SpringCloud集成常用组件">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-15T10:11:07.982Z">
+<meta property="og:updated_time" content="2019-08-20T14:08:08.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HashMap中为什么要使用红黑树">
-<meta name="twitter:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta name="twitter:title" content="SpringCloud组件">
+<meta name="twitter:description" content="SpringCloud集成常用组件">
   
     <link rel="alternative" href="/atom.xml" title="MyKatZone" type="application/atom+xml">
   
@@ -171,35 +171,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为什么HashMap使用红黑树而不是平衡二叉树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SpringCloud常用组件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      HashMap中为什么要使用红黑树
+      SpringCloud组件
     </h1>
   
 
         
-        <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" class="archive-article-date">
-  	<time datetime="2017-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-11</time>
+        <a href="/2019/08/20/SpringCloud常用组件/" class="archive-article-date">
+  	<time datetime="2019-08-20T13:26:04.621Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="为什么HashMap使用红黑树而不用平衡二叉树"><a href="#为什么HashMap使用红黑树而不用平衡二叉树" class="headerlink" title="为什么HashMap使用红黑树而不用平衡二叉树"></a>为什么HashMap使用红黑树而不用平衡二叉树</h2><p>​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
-<p>​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！</p>
-<p>​    红黑树和AVL树都是常用的平衡二叉搜索树，他们查找、删除、修改的时间复杂度都是O(logn)，首先要明确两者的一些区别：</p>
-<ul>
-<li>AVL树是更加严格的平衡，所以它的查找速度更快，一般读取查找密集型任务。</li>
-<li>红黑树放弃了追求完全的平衡，追求大致平衡，在与AVL的使劲复杂度相差不大的情况下，保证每次插入最后只需要三次旋转就能达到平衡，更适合于插入修改密集型任务。</li>
-<li>AVL树通常比红黑树更加难以平衡。</li>
-</ul>
-
+        <h2 id="SpringCloud集成常用组件"><a href="#SpringCloud集成常用组件" class="headerlink" title="SpringCloud集成常用组件"></a>SpringCloud集成常用组件</h2>
       
 
       
@@ -243,7 +235,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HashMap 红黑树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
         		</li>
       		
 		</ul>
@@ -299,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/20/SpringCloud常用组件/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +305,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/24/动态代理的两种方式及区别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/22/浅谈HashMap/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          动态代理的两种方式
+          浅谈HashMap
         
       </div>
     </a>
   
   
-    <a href="/2017/08/25/SSM框架整合/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SSM框架整合</div>
+    <a href="/2019/08/20/CSRF攻击/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CSRF</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -355,8 +347,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/", 
-    sourceId: "为什么HashMap使用红黑树而不是平衡二叉树",
+    url: "http://yoursite.com/2019/08/20/SpringCloud常用组件/", 
+    sourceId: "SpringCloud常用组件",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

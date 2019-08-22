@@ -171,6 +171,298 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-曾经弱爆的自己（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/22/曾经弱爆的自己（一）/">博彦科技电话面试 eposide 1</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/22/曾经弱爆的自己（一）/" class="archive-article-date">
+  	<time datetime="2019-08-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="面试问题总结"><a href="#面试问题总结" class="headerlink" title="面试问题总结"></a>面试问题总结</h2><ol>
+<li>HashMap底层的源码能讲讲吗？</li>
+</ol>
+<blockquote>
+<p>刺激，上来就搞源码</p>
+</blockquote>
+<p>​                </p>
+<h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><ul>
+<li><p>为什么要使用链表？</p>
+</li>
+<li><p>HashMap线程安全吗？</p>
+</li>
+</ul>
+<ol start="2">
+<li>如何设计一个线程安全的类？</li>
+</ol>
+<h3 id="延伸-1"><a href="#延伸-1" class="headerlink" title="延伸"></a>延伸</h3><ul>
+<li>加锁的方式有哪些？</li>
+<li>ReetrantLock类和Lock接口？</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">发誓要变强</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/22/曾经弱爆的自己（一）/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-浅谈HashMap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/22/浅谈HashMap/">浅谈HashMap</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/22/浅谈HashMap/" class="archive-article-date">
+  	<time datetime="2019-08-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简单认识HashMap"><a href="#简单认识HashMap" class="headerlink" title="简单认识HashMap"></a>简单认识HashMap</h2><p>​    HashMap是Java程序员使用频率最高的用于映射（键值对）处理的数据类型。HashMap继承自AbstractMap，同时AbstractMap又实现了Map接口，内部存储的是key-value键值对的形式，存储的对象是Entry。</p>
+<p>​    下面谈谈JDK1.8之后，HashMap的工作原理，先上源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The maximum capacity, used if a higher value is implicitly specified</span></span><br><span class="line"><span class="comment"> * by either of the constructors with arguments.</span></span><br><span class="line"><span class="comment"> * MUST be a power of two &lt;= 1&lt;&lt;30.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"> <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line"> <span class="keyword">final</span> K key;</span><br><span class="line"> V value;</span><br><span class="line"> Node&lt;K,V&gt; next;</span><br><span class="line"> <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The table, initialized on first use, and resized as</span></span><br><span class="line"><span class="comment"> * necessary. When allocated, length is always a power of two.</span></span><br><span class="line"><span class="comment"> * (We also tolerate length zero in some operations to allow</span></span><br><span class="line"><span class="comment"> * bootstrapping mechanics that are currently not needed.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br><span class="line"><span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    HashMap内部存储使用了一个Node数组（默认大小是16），每个Node都是一个链表，每个链表存储相同索引的元素。</p>
+<p>​    之所以采用这样的数据结构是为了防止冲突发生：Java中两个不同的对象可能有一样的hashCode，所以不同的建可能有相同的hashCode，从而导致冲突的产生。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>; <span class="comment">//默认转成树形结构的临界条件</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;	<span class="comment">//默认还原成非树形结构的临界条件</span></span><br></pre></td></tr></table></figure>
+
+<p>​    从Java8开始，HashMap(ConcurrentHashMap以及LinkedHashMap)在处理频繁冲突时，为了提升性能将使用平<strong>衡树</strong>代替链表，当同一hash桶中的元素数量超过特点值(TREEIFY_THRESHOLD)便会由链表切换成平衡树，这会将get()方法的性能从O(n)提升到O(logn)；而对HashMap进行split操作如果元素数量在特定的值或小于特定值(UNTREEIFY_THRESHOLD)，平衡树会被重新转换成链表。</p>
+<h2 id="HashMap的自动扩容机制"><a href="#HashMap的自动扩容机制" class="headerlink" title="HashMap的自动扩容机制"></a>HashMap的自动扩容机制</h2><p>​    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The load factor used when none specified in constructor.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    HashMap内部的Node数组默认大小是16（DEFAULT_INITIAL_CAPACITY）</p>
+<p>​    假设有1万个元素需要放入HashMap，那么最好的情况下每个hash桶里面都有625个元素。此时你要调用put()、get()、remove()方法操作一个元素，平均要遍历313个元素，大大降低了效率。</p>
+<p>​    为了解决这个问题，HashMap提供了自动扩容机制，当元素个数达到数组大小x负载因子的数量后会扩大数组的大小。在默认情况下，数组大小为16，因子（DEFAULT_LOAD_FACTOR）为0.75，也就是说当HashMap中的元素超过16*0.75=12时，会把数组大小扩展为2 * 16 ，并且重新分配索引，计算每个元素在新数组中的位置。</p>
+<h2 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h2><p>​    HashMap在并发时可能出现的问题主要是两方面：</p>
+<ul>
+<li><p>put的时候导致的线程数据不一致</p>
+<p>比如有两个线程A和B，首先A线程希望插入一个key-value对到HashMap中，首先计算记录索要落到的hash桶的索引，然后获取到该桶里的链表头结点，此时线程A的时间片用完了，而此时线程B被调度得以执行，和线程A执行一样的操作，只不过线程B成功将记录查到了桶里面，假如线程A插入的记录计算出来的hash桶索引和线程B要插入的记录计算出来的hash桶索引是一样的，那么当线程B成功插入以后，线程A再次被调度执行时，它此时还不知道链表已经发生变化，如此一来就会覆盖了线程B插入的记录，这样线程B插入的记录就凭空消失了，造成了数据不一致行为。</p>
+</li>
+<li><p>resize引发死循环（java8不再出现）</p>
+<p>这种情况发生在java7中HashMap自动扩容时，当两个线程同时检测到元素个数超过数组大小x负载因子后，此时两个线程都会在put()犯法中调用resize()，两个线程同时修改一个链表结构会产生一个循环链表，接下来在想通过get()获取某一个元素，就会出现死循环。</p>
+</li>
+</ul>
+<h2 id="线程安全的Map"><a href="#线程安全的Map" class="headerlink" title="线程安全的Map"></a>线程安全的Map</h2><ul>
+<li>Hashtable</li>
+<li>ConcurrentHashMap</li>
+<li>SynchronizedMap</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Hashtable</span></span><br><span class="line">Map&lt;String, String&gt; hashtable = <span class="keyword">new</span> Hashtable&lt;&gt;();</span><br><span class="line"><span class="comment">//synchronizedMap</span></span><br><span class="line">Map&lt;String, String&gt; synchronizedHashMap = Collections.synchronizedMap(<span class="keyword">new</span> HashMap&lt;String, String&gt;());</span><br><span class="line"><span class="comment">//ConcurrentHashMap</span></span><br><span class="line">Map&lt;String, String&gt; concurrentHashMap = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hashtable-deprecated"><a href="#Hashtable-deprecated" class="headerlink" title="Hashtable(deprecated)"></a>Hashtable(deprecated)</h2><p>Hashtable源码中使用synchronized来保证线程安全，所以当一个线程访问Hashtable的同步方法时，其他线程如果也要访问同步方法，会被阻塞，因此Hashtable效率很低，基本被弃用。</p>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p>​    ConcurrentHashMap沿用了与它同时期的HashMap的思想，底层任然有“数组”+链表+红黑树的方式，但是为了做到并发，又增加了很多辅助的类，例如TreeBin,Traverser等对象内部类。</p>
+<h5 id="与Hashtable不同的是："><a href="#与Hashtable不同的是：" class="headerlink" title="与Hashtable不同的是："></a>与Hashtable不同的是：</h5><p>​    ConcurrentHashMap没有对整个hash表进行锁定，而是才用了分离锁(segment)的方式进行局部锁定，具体体现在，他在代码总维护者一个segment数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** For serialization compatibility. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ObjectStreamField[] serialPersistentFields = &#123;</span><br><span class="line">        <span class="keyword">new</span> ObjectStreamField(<span class="string">"segments"</span>, Segment[].class),</span><br><span class="line">        <span class="keyword">new</span> ObjectStreamField(<span class="string">"segmentMask"</span>, Integer.TYPE),</span><br><span class="line">        <span class="keyword">new</span> ObjectStreamField(<span class="string">"segmentShift"</span>, Integer.TYPE)</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>​        它增加了一个属性–sizeCtl: </p>
+<p>​            hash表初始化或扩容时的一个控制位标识量。</p>
+<p>​                负数表示正在进行初始化或扩容操作：</p>
+<p>​                -1表示正在初始化</p>
+<p>​                -N表示有N-1个线程正在进行扩容操作</p>
+<p>​                正数或0代表hash表还没有初始化，这个数值表示初始化或下一次进行扩容的大小</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Table initialization and resizing control. When negative, the</span></span><br><span class="line"><span class="comment"> * table is being initialized or resized: -1 for initialization,</span></span><br><span class="line"><span class="comment"> * else -(1 + the number of active resizing threads). Otherwise,</span></span><br><span class="line"><span class="comment"> * when table is null, holds the initial table size to use upon</span></span><br><span class="line"><span class="comment"> * creation, or 0 for default. After initialization, holds the</span></span><br><span class="line"><span class="comment"> * next element count value upon which to resize the table.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="keyword">int</span> sizeCtl;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"> <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line"> <span class="keyword">final</span> K key;</span><br><span class="line"> <span class="keyword">volatile</span> V val;</span><br><span class="line"> <span class="keyword">volatile</span> Node&lt;K,V&gt; next;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">setValue</span><span class="params">(V value)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Virtualized support for map.get(); overridden in subclasses.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Node&lt;K,V&gt; <span class="title">find</span><span class="params">(<span class="keyword">int</span> h, Object k)</span> </span>&#123;</span><br><span class="line"> Node&lt;K,V&gt; e = <span class="keyword">this</span>;</span><br><span class="line"> <span class="keyword">if</span> (k != <span class="keyword">null</span>) &#123;</span><br><span class="line"> <span class="keyword">do</span> &#123;</span><br><span class="line">  K ek;</span><br><span class="line">  <span class="keyword">if</span> (e.hash == h &amp;&amp;</span><br><span class="line">  ((ek = e.key) == k || (ek != <span class="keyword">null</span> &amp;&amp; k.equals(ek))))</span><br><span class="line">  <span class="keyword">return</span> e;</span><br><span class="line">  &#125; <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    在ConcurrentHashMap的Node内部类中，它对value和next属性设置了volatile同步锁，不允许调用setValue()方法直接改变Node的value域，增加了find方法辅助map.get()方法。</p>
+<h2 id="SynchronizedMap"><a href="#SynchronizedMap" class="headerlink" title="SynchronizedMap"></a>SynchronizedMap</h2><p>​    SynchronizedMap是Collections的内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class"> <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;K,V&gt; m; <span class="comment">// Backing Map</span></span><br><span class="line"> <span class="keyword">final</span> Object mutex; <span class="comment">// Object on which to synchronize</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.size();&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.isEmpty();&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsKey</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsKey(key);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsValue</span><span class="params">(Object value)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.containsValue(value);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.get(key);&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.put(key, value);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">remove</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;<span class="keyword">return</span> m.remove(key);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putAll</span><span class="params">(Map&lt;? extends K, ? extends V&gt; map)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;m.putAll(map);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (mutex) &#123;m.clear();&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    在 SynchronizedMap 类中使用了 synchronized 同步关键字来保证对 Map 的操作是线程安全的。</p>
+<p>性能方面：ConcurrentHashMap&gt;SynchronizedMap≈Hashtable</p>
+<blockquote>
+<p>ref:<a href="https://www.cnblogs.com/yucfeng/p/9035308.html" target="_blank" rel="noopener">https://www.cnblogs.com/yucfeng/p/9035308.html</a></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HashMap</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/22/浅谈HashMap/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringCloud常用组件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/20/SpringCloud常用组件/">SpringCloud组件</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/20/SpringCloud常用组件/" class="archive-article-date">
+  	<time datetime="2019-08-20T13:26:04.621Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SpringCloud集成常用组件"><a href="#SpringCloud集成常用组件" class="headerlink" title="SpringCloud集成常用组件"></a>SpringCloud集成常用组件</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/20/SpringCloud常用组件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CSRF攻击" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -343,6 +635,155 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/17/ThreadLocal原理分析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SOA架构和微服务架构的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/16/SOA架构和微服务架构的区别/">SOA架构与微服务架构的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/16/SOA架构和微服务架构的区别/" class="archive-article-date">
+  	<time datetime="2019-01-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SOA架构和微服务架构的区别"><a href="#SOA架构和微服务架构的区别" class="headerlink" title="SOA架构和微服务架构的区别"></a>SOA架构和微服务架构的区别</h2><p>​    首先SOA架构和微服务架构都是分布式架构（就像ESB和微服务网关是一个层面的东西），一个谈的是架构风格和方法，一个谈的是实现工具或组件。</p>
+<ol>
+<li>SOA(Service Oriented Architecture)“面向服务架构”，是一种设计方法，其中包含多个服务，服务通常以独立的形式存在，各个服务之间通过网络调用。</li>
+<li>微服务架构：SOA的升级版，强调“组件化和服务化”，系统可以拆分为多个独立开发、设计、运行的小应用，这些小应用之间通过服务完成交互和集成。</li>
+</ol>
+<h2 id="ESB和微服务API网关"><a href="#ESB和微服务API网关" class="headerlink" title="ESB和微服务API网关"></a>ESB和微服务API网关</h2><ol>
+<li>ESB(企业服务总线),，简单来说ESB相当于一根管道，用来连接各个服务节点，ESB做了消息的转化解释和路由工作，让不同的服务互联互通；</li>
+<li>API网关是一个服务器，是系统的唯一入口（类似于外观设计模式）。API网关方式的核心要点是，所有的客户端和消费端都通过统一的网关接入微服务，在网关层处理所有的非业务功能。通常，网关也是提供REST/HTTP的访问API。服务端通过API-GW注册和管理服务。</li>
+</ol>
+<h2 id="SOA架构特点"><a href="#SOA架构特点" class="headerlink" title="SOA架构特点"></a>SOA架构特点</h2><ol>
+<li><p>系统集成</p>
+<p>站在系统的角度，解决企业系统间的通信问 题，把原先散乱、无规划的系统间的网状结构，梳理成 规整、可治理的系统间星形结构，这一步往往需要引入 一些产品，比如 ESB、以及技术规范、服务管理规范：这一步解决的核心问题是【有序】</p>
+</li>
+<li><p>系统的服务化</p>
+<p>站在功能的角度，把业务逻辑抽象成 可复用、可组装的服务，通过服务的编排实现业务的 快速再生，目的：把原先固有的业务功能转变为通用 的业务服务，实现业务逻辑的快速复用；这一步解决 的核心问题是【复用】</p>
+</li>
+<li><p>业务的服务化</p>
+<p>站在企业的角度，把企业职能抽象成 可复用、可组装的服务；把原先职能化的企业架构转变为服务化的企业架构，进一步提升企业的对外服务能力；“前面两步都是从技术层面来解决系统调用、系统功能复用的问题”。第三步，则是以业务驱动把一个业务单元封装成一项服务。这一步解决的核心问题是【高效】</p>
+</li>
+</ol>
+<h2 id="微服务架构特点"><a href="#微服务架构特点" class="headerlink" title="微服务架构特点"></a>微服务架构特点</h2><ol>
+<li><p>通过服务实现组件化</p>
+<ul>
+<li>开发者不再需要协调其他服务部署对本服务的影响</li>
+</ul>
+</li>
+<li><p>按业务能力来划分服务和开发团队</p>
+<ul>
+<li>开发者可以自由选择开发技术，提供API服务</li>
+</ul>
+</li>
+<li><p>去中心化</p>
+<ul>
+<li>每个微服务有自己私有的数据库持久化业务数据</li>
+<li>每个微服务只能访问自己的数据库，而不能访问其它服务的数据库</li>
+<li>某些业务场景下，需要在一个事务中更新多个数据库。这种情况也不能直接访问其它微服务的数据库，而是通过对于微服务进行操作。</li>
+<li>数据的去中心化，进一步降低了微服务之间的耦合度，不同服务可以采用不同的数据库技术（SQL、NoSQL等）。在复杂的业务场景下，如果包含多个微服务，通常在客户端或者中间层（网关）处理。</li>
+</ul>
+</li>
+<li><p>基础设施自动化（devops,自动化部署）</p>
+</li>
+</ol>
+<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>SOA</th>
+<th>微服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组件大小</td>
+<td>大块业务逻辑</td>
+<td>单独任务或小块业务逻辑</td>
+</tr>
+<tr>
+<td>耦合</td>
+<td>通常松耦合</td>
+<td>总是松耦合</td>
+</tr>
+<tr>
+<td>公司架构</td>
+<td>任何类型</td>
+<td>小型、专注于功能交叉团队</td>
+</tr>
+<tr>
+<td>管理</td>
+<td>着重中央管理</td>
+<td>着重分散管理</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>确保应用能够交互操作</td>
+<td>执行新功能快速拓展开发团队</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">SOA 微服务</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/16/SOA架构和微服务架构的区别/">展开全文 >></a>
         </p>
       
 
@@ -997,87 +1438,10 @@
 
 
   
-    <article id="post-为什么HashMap使用红黑树而不是平衡二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/">HashMap中为什么要使用红黑树</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" class="archive-article-date">
-  	<time datetime="2017-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="为什么HashMap使用红黑树而不用平衡二叉树"><a href="#为什么HashMap使用红黑树而不用平衡二叉树" class="headerlink" title="为什么HashMap使用红黑树而不用平衡二叉树"></a>为什么HashMap使用红黑树而不用平衡二叉树</h2><p>​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
-<p>​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！</p>
-<p>​    红黑树和AVL树都是常用的平衡二叉搜索树，他们查找、删除、修改的时间复杂度都是O(logn)，首先要明确两者的一些区别：</p>
-<ul>
-<li>AVL树是更加严格的平衡，所以它的查找速度更快，一般读取查找密集型任务。</li>
-<li>红黑树放弃了追求完全的平衡，追求大致平衡，在与AVL的使劲复杂度相差不大的情况下，保证每次插入最后只需要三次旋转就能达到平衡，更适合于插入修改密集型任务。</li>
-<li>AVL树通常比红黑树更加难以平衡。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HashMap 红黑树</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1171,11 +1535,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">跨域攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Thread ThreadLocal</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">SOA 微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">HashMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1191,11 +1579,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">跨域攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">发誓要变强</a>
               </li>
             
             <div class="clearfix"></div>

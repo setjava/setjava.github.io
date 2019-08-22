@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HashMap中为什么要使用红黑树 | MyKatZone</title>
+  <title>SOA架构与微服务架构的区别 | MyKatZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
-<meta name="keywords" content="HashMap 红黑树">
+  <meta name="description" content="SOA架构和微服务架构的区别​    首先SOA架构和微服务架构都是分布式架构（就像ESB和微服务网关是一个层面的东西），一个谈的是架构风格和方法，一个谈的是实现工具或组件。  SOA(Service Oriented Architecture)“面向服务架构”，是一种设计方法，其中包含多个服务，服务通常以独立的形式存在，各个服务之间通过网络调用。 微服务架构：SOA的升级版，强调“组件化和服务化">
+<meta name="keywords" content="SOA 微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap中为什么要使用红黑树">
-<meta property="og:url" content="http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/index.html">
+<meta property="og:title" content="SOA架构与微服务架构的区别">
+<meta property="og:url" content="http://yoursite.com/2019/01/16/SOA架构和微服务架构的区别/index.html">
 <meta property="og:site_name" content="MyKatZone">
-<meta property="og:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta property="og:description" content="SOA架构和微服务架构的区别​    首先SOA架构和微服务架构都是分布式架构（就像ESB和微服务网关是一个层面的东西），一个谈的是架构风格和方法，一个谈的是实现工具或组件。  SOA(Service Oriented Architecture)“面向服务架构”，是一种设计方法，其中包含多个服务，服务通常以独立的形式存在，各个服务之间通过网络调用。 微服务架构：SOA的升级版，强调“组件化和服务化">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-15T10:11:07.982Z">
+<meta property="og:updated_time" content="2019-08-22T07:30:28.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HashMap中为什么要使用红黑树">
-<meta name="twitter:description" content="为什么HashMap使用红黑树而不用平衡二叉树​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。 ​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！ ​    红黑树和AVL树都是常">
+<meta name="twitter:title" content="SOA架构与微服务架构的区别">
+<meta name="twitter:description" content="SOA架构和微服务架构的区别​    首先SOA架构和微服务架构都是分布式架构（就像ESB和微服务网关是一个层面的东西），一个谈的是架构风格和方法，一个谈的是实现工具或组件。  SOA(Service Oriented Architecture)“面向服务架构”，是一种设计方法，其中包含多个服务，服务通常以独立的形式存在，各个服务之间通过网络调用。 微服务架构：SOA的升级版，强调“组件化和服务化">
   
     <link rel="alternative" href="/atom.xml" title="MyKatZone" type="application/atom+xml">
   
@@ -171,34 +171,102 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为什么HashMap使用红黑树而不是平衡二叉树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SOA架构和微服务架构的区别" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      HashMap中为什么要使用红黑树
+      SOA架构与微服务架构的区别
     </h1>
   
 
         
-        <a href="/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" class="archive-article-date">
-  	<time datetime="2017-12-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-11</time>
+        <a href="/2019/01/16/SOA架构和微服务架构的区别/" class="archive-article-date">
+  	<time datetime="2019-01-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="为什么HashMap使用红黑树而不用平衡二叉树"><a href="#为什么HashMap使用红黑树而不用平衡二叉树" class="headerlink" title="为什么HashMap使用红黑树而不用平衡二叉树"></a>为什么HashMap使用红黑树而不用平衡二叉树</h2><p>​    在JDK1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
-<p>​    但是为什么用红黑树而不是AVL（平衡二叉树），主要是因为CurrentHashMap是加了读写锁，如果写的时候发生冲突，那么会造成等待时间过长，红黑树比AVL树的插入效率更高！</p>
-<p>​    红黑树和AVL树都是常用的平衡二叉搜索树，他们查找、删除、修改的时间复杂度都是O(logn)，首先要明确两者的一些区别：</p>
+        <h2 id="SOA架构和微服务架构的区别"><a href="#SOA架构和微服务架构的区别" class="headerlink" title="SOA架构和微服务架构的区别"></a>SOA架构和微服务架构的区别</h2><p>​    首先SOA架构和微服务架构都是分布式架构（就像ESB和微服务网关是一个层面的东西），一个谈的是架构风格和方法，一个谈的是实现工具或组件。</p>
+<ol>
+<li>SOA(Service Oriented Architecture)“面向服务架构”，是一种设计方法，其中包含多个服务，服务通常以独立的形式存在，各个服务之间通过网络调用。</li>
+<li>微服务架构：SOA的升级版，强调“组件化和服务化”，系统可以拆分为多个独立开发、设计、运行的小应用，这些小应用之间通过服务完成交互和集成。</li>
+</ol>
+<h2 id="ESB和微服务API网关"><a href="#ESB和微服务API网关" class="headerlink" title="ESB和微服务API网关"></a>ESB和微服务API网关</h2><ol>
+<li>ESB(企业服务总线),，简单来说ESB相当于一根管道，用来连接各个服务节点，ESB做了消息的转化解释和路由工作，让不同的服务互联互通；</li>
+<li>API网关是一个服务器，是系统的唯一入口（类似于外观设计模式）。API网关方式的核心要点是，所有的客户端和消费端都通过统一的网关接入微服务，在网关层处理所有的非业务功能。通常，网关也是提供REST/HTTP的访问API。服务端通过API-GW注册和管理服务。</li>
+</ol>
+<h2 id="SOA架构特点"><a href="#SOA架构特点" class="headerlink" title="SOA架构特点"></a>SOA架构特点</h2><ol>
+<li><p>系统集成</p>
+<p>站在系统的角度，解决企业系统间的通信问 题，把原先散乱、无规划的系统间的网状结构，梳理成 规整、可治理的系统间星形结构，这一步往往需要引入 一些产品，比如 ESB、以及技术规范、服务管理规范：这一步解决的核心问题是【有序】</p>
+</li>
+<li><p>系统的服务化</p>
+<p>站在功能的角度，把业务逻辑抽象成 可复用、可组装的服务，通过服务的编排实现业务的 快速再生，目的：把原先固有的业务功能转变为通用 的业务服务，实现业务逻辑的快速复用；这一步解决 的核心问题是【复用】</p>
+</li>
+<li><p>业务的服务化</p>
+<p>站在企业的角度，把企业职能抽象成 可复用、可组装的服务；把原先职能化的企业架构转变为服务化的企业架构，进一步提升企业的对外服务能力；“前面两步都是从技术层面来解决系统调用、系统功能复用的问题”。第三步，则是以业务驱动把一个业务单元封装成一项服务。这一步解决的核心问题是【高效】</p>
+</li>
+</ol>
+<h2 id="微服务架构特点"><a href="#微服务架构特点" class="headerlink" title="微服务架构特点"></a>微服务架构特点</h2><ol>
+<li><p>通过服务实现组件化</p>
 <ul>
-<li>AVL树是更加严格的平衡，所以它的查找速度更快，一般读取查找密集型任务。</li>
-<li>红黑树放弃了追求完全的平衡，追求大致平衡，在与AVL的使劲复杂度相差不大的情况下，保证每次插入最后只需要三次旋转就能达到平衡，更适合于插入修改密集型任务。</li>
-<li>AVL树通常比红黑树更加难以平衡。</li>
+<li>开发者不再需要协调其他服务部署对本服务的影响</li>
 </ul>
+</li>
+<li><p>按业务能力来划分服务和开发团队</p>
+<ul>
+<li>开发者可以自由选择开发技术，提供API服务</li>
+</ul>
+</li>
+<li><p>去中心化</p>
+<ul>
+<li>每个微服务有自己私有的数据库持久化业务数据</li>
+<li>每个微服务只能访问自己的数据库，而不能访问其它服务的数据库</li>
+<li>某些业务场景下，需要在一个事务中更新多个数据库。这种情况也不能直接访问其它微服务的数据库，而是通过对于微服务进行操作。</li>
+<li>数据的去中心化，进一步降低了微服务之间的耦合度，不同服务可以采用不同的数据库技术（SQL、NoSQL等）。在复杂的业务场景下，如果包含多个微服务，通常在客户端或者中间层（网关）处理。</li>
+</ul>
+</li>
+<li><p>基础设施自动化（devops,自动化部署）</p>
+</li>
+</ol>
+<h2 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>SOA</th>
+<th>微服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组件大小</td>
+<td>大块业务逻辑</td>
+<td>单独任务或小块业务逻辑</td>
+</tr>
+<tr>
+<td>耦合</td>
+<td>通常松耦合</td>
+<td>总是松耦合</td>
+</tr>
+<tr>
+<td>公司架构</td>
+<td>任何类型</td>
+<td>小型、专注于功能交叉团队</td>
+</tr>
+<tr>
+<td>管理</td>
+<td>着重中央管理</td>
+<td>着重分散管理</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>确保应用能够交互操作</td>
+<td>执行新功能快速拓展开发团队</td>
+</tr>
+</tbody></table>
 
       
 
@@ -243,7 +311,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HashMap 红黑树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">SOA 微服务</a>
         		</li>
       		
 		</ul>
@@ -299,7 +367,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/16/SOA架构和微服务架构的区别/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +381,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/24/动态代理的两种方式及区别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/17/ThreadLocal原理分析/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          动态代理的两种方式
+          ThreadLocal
         
       </div>
     </a>
   
   
-    <a href="/2017/08/25/SSM框架整合/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SSM框架整合</div>
+    <a href="/2018/04/12/MyBatis框架个人总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MyBatis总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -355,8 +423,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2017/12/11/为什么HashMap使用红黑树而不是平衡二叉树/", 
-    sourceId: "为什么HashMap使用红黑树而不是平衡二叉树",
+    url: "http://yoursite.com/2019/01/16/SOA架构和微服务架构的区别/", 
+    sourceId: "SOA架构和微服务架构的区别",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
