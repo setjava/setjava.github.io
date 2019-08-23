@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>博彦科技电话面试 eposide 1 | MyKatZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码  ​                 延伸 为什么要使用链表？  HashMap线程安全吗？    如何设计一个线程安全的类？  延伸 加锁的方式有哪些？ ReetrantLock类和Lock接口？">
+  <meta name="description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码，参考我的另一篇博客《浅谈HashMap》  ​                 延伸 为什么要使用链表？   JDK1.7之前，HashMap对数组元素即链表的查询是从头节点开始查询的，这样链表一旦长了，效率低也是正常，但是虽然JDK1.8后增加了一个阈值作为判断时候转为红黑树的标尺，虽然红黑树的查询效率高，但是插入效率远不">
 <meta name="keywords" content="发誓要变强">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博彦科技电话面试 eposide 1">
 <meta property="og:url" content="http://yoursite.com/2019/08/22/曾经弱爆的自己（一）/index.html">
 <meta property="og:site_name" content="MyKatZone">
-<meta property="og:description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码  ​                 延伸 为什么要使用链表？  HashMap线程安全吗？    如何设计一个线程安全的类？  延伸 加锁的方式有哪些？ ReetrantLock类和Lock接口？">
+<meta property="og:description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码，参考我的另一篇博客《浅谈HashMap》  ​                 延伸 为什么要使用链表？   JDK1.7之前，HashMap对数组元素即链表的查询是从头节点开始查询的，这样链表一旦长了，效率低也是正常，但是虽然JDK1.8后增加了一个阈值作为判断时候转为红黑树的标尺，虽然红黑树的查询效率高，但是插入效率远不">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-22T12:48:13.307Z">
+<meta property="og:updated_time" content="2019-08-22T23:54:24.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="博彦科技电话面试 eposide 1">
-<meta name="twitter:description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码  ​                 延伸 为什么要使用链表？  HashMap线程安全吗？    如何设计一个线程安全的类？  延伸 加锁的方式有哪些？ ReetrantLock类和Lock接口？">
+<meta name="twitter:description" content="面试问题总结 HashMap底层的源码能讲讲吗？   刺激，上来就搞源码，参考我的另一篇博客《浅谈HashMap》  ​                 延伸 为什么要使用链表？   JDK1.7之前，HashMap对数组元素即链表的查询是从头节点开始查询的，这样链表一旦长了，效率低也是正常，但是虽然JDK1.8后增加了一个阈值作为判断时候转为红黑树的标尺，虽然红黑树的查询效率高，但是插入效率远不">
   
     <link rel="alternative" href="/atom.xml" title="MyKatZone" type="application/atom+xml">
   
@@ -195,18 +195,27 @@
 <li>HashMap底层的源码能讲讲吗？</li>
 </ol>
 <blockquote>
-<p>刺激，上来就搞源码</p>
+<p>刺激，上来就搞源码，参考我的另一篇博客《浅谈HashMap》</p>
 </blockquote>
 <p>​                </p>
 <h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><ul>
-<li><p>为什么要使用链表？</p>
-</li>
-<li><p>HashMap线程安全吗？</p>
-</li>
+<li>为什么要使用链表？</li>
 </ul>
+<blockquote>
+<p>JDK1.7之前，HashMap对数组元素即链表的查询是从头节点开始查询的，这样链表一旦长了，效率低也是正常，但是虽然JDK1.8后增加了一个阈值作为判断时候转为红黑树的标尺，虽然红黑树的查询效率高，但是插入效率远不及链表的头插法</p>
+</blockquote>
+<ul>
+<li>HashMap线程安全吗？</li>
+</ul>
+<blockquote>
+<p>非线程同步（线程不安全），因为没有加任何的锁机制，多个线程如果同时操作HashMap，如果key的hashCode相同，会造成数据的覆盖，造成数据不同步，所以非线程安全。</p>
+</blockquote>
 <ol start="2">
 <li>如何设计一个线程安全的类？</li>
 </ol>
+<blockquote>
+<p>具体请参考我的另一篇博客《如何优雅的设置一个线程安全的类？》</p>
+</blockquote>
 <h3 id="延伸-1"><a href="#延伸-1" class="headerlink" title="延伸"></a>延伸</h3><ul>
 <li>加锁的方式有哪些？</li>
 <li>ReetrantLock类和Lock接口？</li>
@@ -325,9 +334,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/08/22/浅谈HashMap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          浅谈HashMap
+        
+      </div>
+    </a>
   
-    <a href="/2019/08/22/浅谈HashMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">浅谈HashMap</div>
+  
+    <a href="/2019/08/20/SpringCloud常用组件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud组件</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -464,11 +482,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">跨域攻击</a>
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">跨域攻击</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,19 +502,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">HashMap</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,15 +514,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HashMap ConcurrentHashMap</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式 单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">发誓要变强</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">HashMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">动态代理</a>
               </li>
             
             <div class="clearfix"></div>
